@@ -16,7 +16,9 @@ class Ball {
 		this.c = c;
 
 		this.velocity = 0;
+		this.velocity_lr = 0;
 		this.speed = -8;
+		this.speed_lr = 8;
 		this.gravity = 0.5;
 
 		this.score = 0;
@@ -26,7 +28,7 @@ class Ball {
 				this.brain.mutate(mutate);
 			}
 		} else {
-			this.brain = new NeuralNetwork(5, 16, 2);
+			this.brain = new NeuralNetwork(7, 24, 3);
 		}
 	}
 
@@ -46,12 +48,20 @@ class Ball {
 		}
 		this.velocity += this.gravity;
 		this.y += this.velocity;
+		this.x += this.velocity_lr;
 	}
 
 	jump() {
 		this.velocity = this.speed;
 	}
 
+	left() {
+		this.velocity_lr = -this.speed_lr;
+	}
+
+	right() {
+		this.velocity_lr = this.speed_lr;
+	}
 	think(inp) {
 		return this.brain.predict(inp);
 	}

@@ -32,11 +32,19 @@ function draw() {
 		inputs[2] = (target.y + target.d) / height;
 		inputs[3] = (target.y - target.d) / height;
 		inputs[4] = (target.y - balls[i].y) / height;
+		inputs[5] = balls[i].x / width;
+		inputs[6] = balls[i].velocity_lr / balls[i].speed_lr;
 
 		//NN Prediction
 		thoughts = balls[i].think(inputs);
-		if (thoughts[1] > 0.5) {
+		if (thoughts[0] > 0.5) {
 			balls[i].jump();
+		}
+		if (thoughts[1] > 0.25) {
+			balls[i].left();
+		}
+		if (thoughts[2] > 0.25) {
+			balls[i].right();
 		}
 
 		//Check if Ball is in Circle
@@ -51,18 +59,34 @@ function draw() {
 		balls[i].update();
 		balls[i].draw();
 
-		//Remove Balls from Gen
-		if (balls[i].y + balls[i].r < 0) {
+		// //Remove Balls from Gen
+		// if (balls[i].y + balls[i].r < 0) {
+		// 	let remBall = balls.splice(i, 1);
+		// 	removed.push(remBall[0]);
+		// }
+		if (
+			balls[i].y + balls[i].r < 0 ||
+			balls[i].x + balls[i].r < 0 ||
+			balls[i].x - balls[i].r > width
+		) {
 			let remBall = balls.splice(i, 1);
 			removed.push(remBall[0]);
 		}
+
 		//Reset
 		if (balls.length == 0 || frameCount > frames) {
 			reset();
 		}
 	}
 	textSize(30);
-	text(`${thoughts[0]} - ${thoughts[1]}`, 5, 35);
+	text(
+		`${round(thoughts[0], 3)} - ${round(thoughts[1], 3)} - ${round(
+			thoughts[2],
+			3
+		)} `,
+		5,
+		35
+	);
 	text(balls.length, 5, 70);
 	text(frameCount, 5, 105);
 }
