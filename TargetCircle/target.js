@@ -3,6 +3,7 @@ class Target {
 		this.x = x;
 		this.y = y;
 		this.d = d;
+		this.factor = 3;
 	}
 
 	draw() {
@@ -13,5 +14,10 @@ class Target {
 		// stroke();
 		// circle(this.x, this.y, this.d - 5);
 		// stroke(0);
+	}
+
+	update(add_x, add_y) {
+		this.x += add_x;
+		this.y += add_y;
 	}
 }

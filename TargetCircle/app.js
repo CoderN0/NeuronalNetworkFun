@@ -4,6 +4,10 @@ let oldGen = [];
 let removed = [];
 let thoughts = [];
 let resetActive = false;
+let noiseX = 0;
+let noiseY = 0;
+let noiseAdd = 0.01;
+let x, y;
 
 const ballCount = 50;
 const frames = 1000;
@@ -23,6 +27,12 @@ function setup() {
 function draw() {
 	background(0);
 
+	noiseX += noiseAdd;
+	noiseY += noiseAdd;
+	x = noise(noiseX);
+	y = noise(noiseY);
+	// console.log(x, y);
+	target.update(random(-1, 1), random(-1, 1));
 	target.draw();
 	// for (let ball in balls) {
 	for (let i = 0; i < balls.length; i++) {
@@ -34,6 +44,9 @@ function draw() {
 		inputs[4] = (target.y - balls[i].y) / height;
 		inputs[5] = balls[i].x / width;
 		inputs[6] = balls[i].velocity_lr / balls[i].speed_lr;
+		inputs[7] = (target.x + target.d) / width;
+		inputs[8] = (target.x - target.d) / width;
+		inputs[9] = (target.y - balls[i].x) / width;
 
 		//NN Prediction
 		thoughts = balls[i].think(inputs);
@@ -60,10 +73,6 @@ function draw() {
 		balls[i].draw();
 
 		// //Remove Balls from Gen
-		// if (balls[i].y + balls[i].r < 0) {
-		// 	let remBall = balls.splice(i, 1);
-		// 	removed.push(remBall[0]);
-		// }
 		if (
 			balls[i].y + balls[i].r < 0 ||
 			balls[i].x + balls[i].r < 0 ||

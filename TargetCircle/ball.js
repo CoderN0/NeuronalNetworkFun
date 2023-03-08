@@ -28,7 +28,7 @@ class Ball {
 				this.brain.mutate(mutate);
 			}
 		} else {
-			this.brain = new NeuralNetwork(7, 24, 3);
+			this.brain = new NeuralNetwork(10, 32, 3);
 		}
 	}
 
