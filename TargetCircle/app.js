@@ -27,6 +27,7 @@ function setup() {
 function draw() {
 	background(0);
 
+	//Radom position chnage
 	noiseX += noiseAdd;
 	noiseY += noiseAdd;
 	x = noise(noiseX);
