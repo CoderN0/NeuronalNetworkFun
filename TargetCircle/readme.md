@@ -2,8 +2,8 @@
 
 ## Inspired by Coding Train here are some little projects with the toy-neural-network from Coding-Train
 
-- The [Toy Neural Network ] (https://github.com/CodingTrain/Toy-Neural-Network-JS) can be found here...
-- The inspiring video can be found [here] (https://www.youtube.com/watch?v=c6y21FkaUqw)
+- The [Toy Neural Network ](https://github.com/CodingTrain/Toy-Neural-Network-JS) can be found here...
+- The inspiring video can be found [here](https://www.youtube.com/watch?v=c6y21FkaUqw)
 
 # Projects
 
